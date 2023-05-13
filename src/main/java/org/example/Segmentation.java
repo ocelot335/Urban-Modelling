@@ -1,2 +1,4 @@
-package org.example;public class Segmentation {
+package org.example;
+
+public class Segmentation {
 }
