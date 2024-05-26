@@ -8,19 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.geotools.data.simple.SimpleFeatureCollection;
-import org.geotools.data.simple.SimpleFeatureIterator;
-import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.index.strtree.STRtree;
-import org.opengis.feature.simple.SimpleFeature;
 
-public class CityVisualization extends Application {
-    public CityGrowthSimulation simulation;
-    public CityGrowthSimulation.Cell[][] cells;
+public class UI extends Application {
+    public Simulation simulation;
+    public Cell[][] cells;
     private final double windowHeight = 768;
     private final double windowWidth = 1024;
     private Group grid;
@@ -31,7 +24,7 @@ public class CityVisualization extends Application {
     private Rectangle[][] rectanglesGrid;
     private boolean[][] turnedIntoUrban;
 
-    public CityVisualization(CityGrowthSimulation.Cell[][] cells, CityGrowthSimulation simulation) {
+    public UI(Cell[][] cells, Simulation simulation) {
         this.simulation = simulation;
         this.cells = cells;
     }
@@ -39,9 +32,9 @@ public class CityVisualization extends Application {
     @Override
     public void start(Stage primaryStage) {
         grid = new Group();
-        cellSize = CityGrowthSimulation.getCellSize();
-        width = simulation.getBoundsWidth() * CityGrowthSimulation.getFactor();
-        height = simulation.getBoundsHeight() * CityGrowthSimulation.getFactor();
+        cellSize = Simulation.getCellSize();
+        width = simulation.getBoundsWidth() * Simulation.getFactor();
+        height = simulation.getBoundsHeight() * Simulation.getFactor();
         if (width / windowWidth < height / windowHeight) {
             k = height / windowHeight;
         } else {
@@ -52,7 +45,7 @@ public class CityVisualization extends Application {
 
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                CityGrowthSimulation.Cell cell = cells[i][j];
+                Cell cell = cells[i][j];
                 Rectangle rect = new Rectangle(cell.x / k, cell.y / k, cellSize / k, cellSize / k);
                 rectanglesGrid[i][j] = rect;
                 if (cell.newUrban) {
@@ -92,7 +85,7 @@ public class CityVisualization extends Application {
     private void updateCity() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                CityGrowthSimulation.Cell cell = cells[i][j];
+                Cell cell = cells[i][j];
                 if (cell.newUrban) {
                     rectanglesGrid[i][j].setFill(Color.BLACK);
                     cell.newUrban = false;
