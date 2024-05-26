@@ -1,18 +1,18 @@
 package org.example;
 
 import javafx.application.Application;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.DirectoryChooser;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
-import javafx.concurrent.Task;
 import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -345,12 +345,13 @@ public class CityGrowthApplication extends Application {
                 waitStage.close();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Ошибка данных");
-                if("Too big!".equals(exception.getMessage())) {
+                if ("Too big!".equals(exception.getMessage())) {
                     alert.setHeaderText("Слишком большой размер входных данных");
                     alert.setContentText("Пожалуйста, выберите меньший участок для симуляции и попробуйте снова.");
                 } else {
                     alert.setHeaderText("Неправильный формат входных данных");
-                    alert.setContentText("Пожалуйста, проверьте, что выбрали нужную папку, и попробуйте снова.");
+                    alert.setContentText("Пожалуйста, проверьте, что выбрали нужную папку, и попробуйте снова.\n" +
+                            exception.getCause() + exception.getMessage());
                 }
                 alert.showAndWait();
             }

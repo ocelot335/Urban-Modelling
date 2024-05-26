@@ -111,14 +111,14 @@ public class Simulation {
     //5. Наличие транспорта - 1-2 очка. Наличие общественного транспорта, такого как автобусы, трамваи и метро, также может быть важным признаком городской среды. Квадрат, где есть много остановок общественного транспорта, получит больше очков, чем квадрат, где их мало или вообще нет.
 
     private static final String[] SHAPEFILE_PATHS = {
-            "\\places.shp",
-            "\\railways.shp",
-            "\\roads.shp",
-            "\\natural.shp",
-            "\\points.shp",
-            "\\buildings.shp",
-            "\\waterways.shp",
-            "\\landuse.shp"
+            File.separator+ "places.shp",
+            File.separator+"railways.shp",
+            File.separator+"roads.shp",
+            File.separator+"natural.shp",
+            File.separator+"points.shp",
+            File.separator+"buildings.shp",
+            File.separator+"waterways.shp",
+            File.separator+"landuse.shp"
     };
 
     private double boundsWidth;

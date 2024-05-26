@@ -1,15 +1,23 @@
 package org.example;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class UI extends Application {
     public Simulation simulation;
@@ -65,21 +73,45 @@ public class UI extends Application {
         grid.requestLayout();
 
         Button stepButton = new Button("Шаг Симуляции");
-        VBox root = new VBox();
-        root.getChildren().addAll(grid, stepButton);
+        Button exportButton = new Button("Экспорт снапшота");
+        HBox root = new HBox();
+        root.getChildren().addAll(stepButton, exportButton);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
         BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(root);
+        borderPane.setCenter(grid);
+        borderPane.setBottom(root);
+        BorderPane.setAlignment(root, Pos.CENTER);
+        BorderPane.setMargin(root, new javafx.geometry.Insets(10, 0, 10, 0));
         stepButton.setOnAction(e -> {
             simulation.doIteration(cells);
             updateCity();
             grid.requestLayout();
         });
+
+        exportButton.setOnAction(e -> exportSnapshot(primaryStage, borderPane));
+
         primaryStage.setScene(new Scene(borderPane, width / k, height / k + 50));
         primaryStage.setTitle("Симуляция роста города");
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    private void exportSnapshot(Stage stage, BorderPane pane) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Сохранить снапшот");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try {
+                WritableImage writableImage = new WritableImage((int) (width / k), (int) (height / k));
+                grid.snapshot(null, writableImage);
+                ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private void updateCity() {
