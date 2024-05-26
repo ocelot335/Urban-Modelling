@@ -9,13 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34bdf602-c70e-45b8-b605-313159a0df67" name="Changes" comment="Из локального хранилища(старая версия)">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/GeoAut_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/GeoAut_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CityGrowthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CityGrowthApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Simulation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/UI.java" afterDir="false" />
+    <list default="true" id="34bdf602-c70e-45b8-b605-313159a0df67" name="Changes" comment="Исправления для macOs + экспорт симуляции">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716759895993</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Исправления для macOs + экспорт симуляции">
+      <option name="closed" value="true" />
+      <created>1716764563389</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1716764563389</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -185,7 +188,8 @@
     <MESSAGE value="Commit at 13'th of May,№2" />
     <MESSAGE value="Commit at 13'th of May,№3" />
     <MESSAGE value="Из локального хранилища(старая версия)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Из локального хранилища(старая версия)" />
+    <MESSAGE value="Исправления для macOs + экспорт симуляции" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправления для macOs + экспорт симуляции" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
