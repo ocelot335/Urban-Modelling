@@ -27,6 +27,7 @@ public class Cell {
     double randomForRAFrom0to1;
     boolean land;
     boolean newUrban = false;
+    int newUrbanAt;
     boolean isUrban;
     int curSegment;
     double degreeOfPerturbation;
@@ -58,6 +59,7 @@ public class Cell {
         BigDecimal result = exp.divide(denominator, RoundingMode.HALF_UP);
         suitabilityCoefficient = result.doubleValue();
         point = centroid;
+        newUrbanAt = Integer.MAX_VALUE;
     }
 
     public void setRA() {

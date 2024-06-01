@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -31,6 +30,7 @@ public class UI extends Application {
     private double cellSize;
     private Rectangle[][] rectanglesGrid;
     private boolean[][] turnedIntoUrban;
+    private int uiIteration = 0;
 
     public UI(Cell[][] cells, Simulation simulation) {
         this.simulation = simulation;
@@ -72,10 +72,11 @@ public class UI extends Application {
 
         grid.requestLayout();
 
-        Button stepButton = new Button("Шаг Симуляции");
+        Button stepButton = new Button("Шаг Симуляции ВПЕРЁД");
+        Button backStepButton = new Button("Шаг Симуляции НАЗАД");
         Button exportButton = new Button("Экспорт снапшота");
         HBox root = new HBox();
-        root.getChildren().addAll(stepButton, exportButton);
+        root.getChildren().addAll(backStepButton, stepButton, exportButton);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
         BorderPane borderPane = new BorderPane();
@@ -85,10 +86,17 @@ public class UI extends Application {
         BorderPane.setMargin(root, new javafx.geometry.Insets(10, 0, 10, 0));
         stepButton.setOnAction(e -> {
             simulation.doIteration(cells);
+            uiIteration++;
             updateCity();
             grid.requestLayout();
         });
-
+        backStepButton.setOnAction(e -> {
+            if (uiIteration != 0) {
+                uiIteration--;
+                updateCity();
+                grid.requestLayout();
+            }
+        });
         exportButton.setOnAction(e -> exportSnapshot(primaryStage, borderPane));
 
         primaryStage.setScene(new Scene(borderPane, width / k, height / k + 50));
@@ -118,6 +126,16 @@ public class UI extends Application {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 Cell cell = cells[i][j];
+                if (cell.newUrbanAt == uiIteration) {
+                    rectanglesGrid[i][j].setFill(Color.BLACK);
+                } else if (cell.newUrbanAt < uiIteration) {
+                    rectanglesGrid[i][j].setFill(Color.ORANGE);
+                } else if (!cell.land) {
+                    rectanglesGrid[i][j].setFill(Color.BLUE);
+                } else {
+                    rectanglesGrid[i][j].setFill(Color.DARKGRAY);
+                }
+                /*
                 if (cell.newUrban) {
                     rectanglesGrid[i][j].setFill(Color.BLACK);
                     cell.newUrban = false;
@@ -126,6 +144,7 @@ public class UI extends Application {
                     turnedIntoUrban[i][j] = false;
                     rectanglesGrid[i][j].setFill(Color.ORANGE);
                 }
+                */
             }
         }
     }

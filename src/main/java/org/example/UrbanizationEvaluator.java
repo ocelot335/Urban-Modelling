@@ -101,6 +101,7 @@ public class UrbanizationEvaluator {
 
         if (score >= thresholdScore) {//7 - best
             cell.isUrban = true;
+            cell.newUrbanAt = -1;
         } else {
             cell.isUrban = false;
         }

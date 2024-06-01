@@ -18,7 +18,10 @@ import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static java.lang.Double.min;
@@ -97,7 +100,7 @@ public class Simulation {
     @Setter
     private static int thresholdScore = 7, scoreForFootway = 1, thresholdNumberOfPoints = 5, scoreForPoints = 2;
 
-
+    private int ITERATION = 0;
 
 
     //1. Наличие дорог и тротуаров - 2-3 очка. Дороги и тротуары являются важными признаками городской среды, так как они связывают здания и объекты в городе. Квадрат, на котором есть множество дорог и тротуаров, получит больше очков, чем квадрат, где есть только одна дорога или вообще нет дорог.
@@ -111,14 +114,14 @@ public class Simulation {
     //5. Наличие транспорта - 1-2 очка. Наличие общественного транспорта, такого как автобусы, трамваи и метро, также может быть важным признаком городской среды. Квадрат, где есть много остановок общественного транспорта, получит больше очков, чем квадрат, где их мало или вообще нет.
 
     private static final String[] SHAPEFILE_PATHS = {
-            File.separator+ "places.shp",
-            File.separator+"railways.shp",
-            File.separator+"roads.shp",
-            File.separator+"natural.shp",
-            File.separator+"points.shp",
-            File.separator+"buildings.shp",
-            File.separator+"waterways.shp",
-            File.separator+"landuse.shp"
+            File.separator + "places.shp",
+            File.separator + "railways.shp",
+            File.separator + "roads.shp",
+            File.separator + "natural.shp",
+            File.separator + "points.shp",
+            File.separator + "buildings.shp",
+            File.separator + "waterways.shp",
+            File.separator + "landuse.shp"
     };
 
     private double boundsWidth;
@@ -185,7 +188,7 @@ public class Simulation {
         strTree = new STRTree(shapefilesFeatureCollections, minSpeedForExpressway, defaultRiverWidth, FACTOR);
         urbanizationEvaluator = new UrbanizationEvaluator(cellSize, thresholdNumberOfPoints, scoreForPoints,
                 maxScoreForLanduse, scoreForBigBuildingsArea, scoreForMediumBuildingsArea, scoreForFootway, thresholdScore,
-                SCANNING_RADIUS,FACTOR, thresholdForAreaForOneBuilding, bigBuildingsArea, mediumBuildingsArea, strTree);
+                SCANNING_RADIUS, FACTOR, thresholdForAreaForOneBuilding, bigBuildingsArea, mediumBuildingsArea, strTree);
     }
 
     public Cell[][] getInitialCells() {
@@ -218,6 +221,7 @@ public class Simulation {
     }
 
     public void doIteration(Cell[][] cells) {
+        ITERATION++;
         //calc neighbourhoodMeanUrban, RA and develeopment probability
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[0].length; j++) {
@@ -334,6 +338,7 @@ public class Simulation {
                                 continue;
                             }
                             cell.newUrban = true;
+                            cell.newUrbanAt = ITERATION;
                             cell.isUrban = true;
                         }
                     }
