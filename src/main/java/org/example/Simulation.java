@@ -99,7 +99,7 @@ public class Simulation {
     @Getter
     @Setter
     private static int thresholdScore = 7, scoreForFootway = 1, thresholdNumberOfPoints = 5, scoreForPoints = 2;
-
+    @Getter
     private int ITERATION = 0;
 
 

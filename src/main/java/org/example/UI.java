@@ -85,7 +85,9 @@ public class UI extends Application {
         BorderPane.setAlignment(root, Pos.CENTER);
         BorderPane.setMargin(root, new javafx.geometry.Insets(10, 0, 10, 0));
         stepButton.setOnAction(e -> {
-            simulation.doIteration(cells);
+            if (uiIteration == simulation.getITERATION()) {
+                simulation.doIteration(cells);
+            }
             uiIteration++;
             updateCity();
             grid.requestLayout();
